@@ -31,32 +31,59 @@ class Armor:
         return random.randint(0,self.max_block)
         pass
 
+class Hero:
+    def __init__(self, name, starting_health=100):
+        self.name = name
+        self.starting_health = starting_health
+        self.abilities = []
+        self.armors = []
+        self.current_health = starting_health
+
+        pass
+
+    def add_ability(self, ability):
+        """ Add ability to abilities list """
+        self.abilities.append(ability)
+        pass
+
+    def attack(self):
+        total = 0
+        for ability in self.abilities:
+            total += ability.attack()
+
+        return total
+        
+        pass
+
+    def defend(self, incoming_damage):
+        pass
+
+    def take_damage(self, damage):
+        pass
+
+    def is_alive(self):
+        pass
+
+    def fight(self,opponent):
+        """opponent will be a hero class"""
+        pass
+
+
 if __name__=="__main__":
     #If you run this file from terminal
     #this block is executed
-    ability = Ability("Roasting Ability",100)
-    armor = Armor("Midget Armor",2000)
-    print(ability.name)
-    print(ability.attack())
-    print(armor.name)
-    print(armor.block())
 
-# class Hero:
-#     def __init__(self, name, starting_health):
-#         self.starting_health = 100
-#         pass
-#
-#     def attack(self):
-#         pass
-#     def defend(self, incoming_damage):
-#         pass
-#
-#     def take_damage(self, damage):
-#         pass
-#
-#     def is_alive(self):
-#         pass
-#
-#     def fight(self,opponent):
-#         """opponent will be a hero class"""
-#         pass
+    ability = Ability("Roasting Ability",100)
+    ability2 = Ability("DEATH",10)
+    # armor = Armor("Midget Armor",2000)
+    # print(ability.name)
+    # print(ability.attack())
+    # print(armor.name)
+    # print(armor.block())
+    hero = Hero("Grace Hopper", 200)
+    hero.add_ability(ability)
+    hero.add_ability(ability2)
+    # print(my_hero.name)
+    # print(my_hero.current_health)
+    #print(hero.abilities)
+    print(hero.attack())
