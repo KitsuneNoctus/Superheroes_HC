@@ -82,20 +82,19 @@ class Hero:
         print("Hero 1: "+self.name)
         print("Hero 2: " +opponent.name)
         while both_alive:
-            # if len(self.abilities) == 0:
-            #     print("Draw!")
-            # else:
-
-            self.take_damage(opponent.attack())
-            opponent.take_damage(self.attack())
-            print(self.current_health)
-            print(opponent.current_health)
-            if opponent.is_alive() == False:
-                both_alive = False
-                print(self.name + " wins")
-            elif self.is_alive() == False:
-                both_alive = False
-                print(opponent.name + "wins")
+            if len(self.abilities) == 0 and len(opponent.abilities) == 0:
+                print("Draw!")
+            else:
+                self.take_damage(opponent.attack())
+                opponent.take_damage(self.attack())
+                print(self.current_health)
+                print(opponent.current_health)
+                if opponent.is_alive() == False:
+                    both_alive = False
+                    print(self.name + " won!")
+                elif self.is_alive() == False:
+                    both_alive = False
+                    print(opponent.name + "won!")
         pass
 
 
