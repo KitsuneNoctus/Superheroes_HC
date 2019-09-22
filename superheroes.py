@@ -57,8 +57,8 @@ class Hero:
         total_defense = 0
         for armor in self.armors:
             total_defense += armor.block()
-
         return total_defense
+        
         pass
 #--------------------------------------------
     def take_damage(self, damage):
@@ -67,6 +67,11 @@ class Hero:
         pass
 
     def is_alive(self):
+        if self.current_health == 0:
+            return False
+        else:
+            return True
+
         pass
 
     def fight(self,opponent):
@@ -77,11 +82,18 @@ class Hero:
 if __name__=="__main__":
     #If you run this file from terminal
     #this block is executed
+
     hero = Hero("Grace Hopper", 200)
-    shield = Armor("Shield", 50)
-    hero.add_armor(shield)
-    hero.take_damage(50)
-    print(hero.current_health)
+    hero.take_damage(150)
+    print(hero.is_alive())
+    hero.take_damage(15000)
+    print(hero.is_alive())
+
+    # hero = Hero("Grace Hopper", 200)
+    # shield = Armor("Shield", 50)
+    # hero.add_armor(shield)
+    # hero.take_damage(50)
+    # print(hero.current_health)
 
     # ability = Ability("Roasting Ability",100)
     # ability2 = Ability("DEATH",10)
