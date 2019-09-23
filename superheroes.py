@@ -1,6 +1,6 @@
 #superheroes.py
 import random
-
+#=================Ability Class========================
 class Ability:
     def __init__(self, name, max_damage):
         self.name = name
@@ -12,7 +12,7 @@ class Ability:
         return random.randint(0,self.max_damage)
         pass
 
-#=========================================================
+#======================Armor Class========================
 class Armor:
     def __init__(self, name, max_block):
         """ name takes in string, max_block is an int"""
@@ -23,7 +23,7 @@ class Armor:
     def block(self):
         return random.randint(0,self.max_block)
         pass
-#=========================================================
+#=====================Hero Class========================
 #HERO CLASS that accesses the other objects
 class Hero:
     def __init__(self, name, starting_health=100):
@@ -87,8 +87,8 @@ class Hero:
             else:
                 self.take_damage(opponent.attack())
                 opponent.take_damage(self.attack())
-                print(self.current_health)
-                print(opponent.current_health)
+                # print(self.current_health)
+                # print(opponent.current_health)
                 if opponent.is_alive() == False:
                     both_alive = False
                     print(self.name + " won!")
