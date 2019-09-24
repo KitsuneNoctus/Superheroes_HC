@@ -29,7 +29,7 @@ class Weapon(Ability):
         """  This method returns a random value
         between one half to the full attack power of the weapon.
         """
-        return random.randint(self.max_damage/2,self.max_damage)
+        return random.randint(self.max_damage//2,self.max_damage)
         # TODO: Use what you learned to complete this method.
         pass
 #=====================Hero Class========================
@@ -118,13 +118,24 @@ class Team:
     def remove_hero(self, name):
         if len(self.heroes) == 0:
             return 0
-        else:
-            self.heroes.remove(self.name)
+        for hero in self.heroes:
+            if hero.name == name:
+                self.heroes.remove(hero)
+                return
+        return 0
+        # if len(self.heroes) == 0:
+        #     return 0
+        # else:
+        #     # index_num = self.heroes.index(self.name)
+        #     # self.heroes.pop(index_num)\
+        #     if name in self.heroes
+        #     for hero in self.heroes:
+        #         if hero.name == name:
+        #             self.heroes.remove(hero)
 
     def view_all_heroes(self):
         for hero in self.heroes:
             print(hero.name)
-        pass
 
 
 if __name__=="__main__":
