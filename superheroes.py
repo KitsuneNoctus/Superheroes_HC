@@ -23,6 +23,15 @@ class Armor:
     def block(self):
         return random.randint(0,self.max_block)
         pass
+#====================Weapon Class=======================
+class Weapon(Ability):
+    def attack(self):
+        """  This method returns a random value
+        between one half to the full attack power of the weapon.
+        """
+        return random.randint(self.max_damage/2,self.max_damage)
+        # TODO: Use what you learned to complete this method.
+        pass
 #=====================Hero Class========================
 #HERO CLASS that accesses the other objects
 class Hero:
@@ -96,6 +105,12 @@ class Hero:
                     both_alive = False
                     print(opponent.name + "won!")
         pass
+
+#===================Team Class=====================
+class Team:
+    def __init__(self, name):
+        self.name = name
+        self.heroes = []
 
 
 if __name__=="__main__":
