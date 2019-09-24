@@ -122,6 +122,8 @@ class Team:
             self.heroes.remove(self.name)
 
     def view_all_heroes(self):
+        for hero in self.heroes:
+            print(hero.name)
         pass
 
 
