@@ -41,6 +41,8 @@ class Hero:
         self.abilities = []
         self.armors = []
         self.current_health = starting_health
+        self.deaths = 0
+        self.kills = 0
 
         pass
 #--------------------------------------------
@@ -85,6 +87,16 @@ class Hero:
 
         pass
 
+    def add_kill(self, num_kills):
+        '''Update kills with num_kills'''
+        self.kills += num_kills
+        pass
+
+    def add_deaths(self, num_deaths):
+        '''update deaths with num_deaths'''
+        self.deaths += num_deaths
+        pass
+
     def fight(self,opponent):
         """opponent will be a hero class"""
         both_alive = True
@@ -101,10 +113,15 @@ class Hero:
                 if opponent.is_alive() == False:
                     both_alive = False
                     print(self.name + " won!")
+                    kills += 1
                 elif self.is_alive() == False:
                     both_alive = False
                     print(opponent.name + "won!")
+                    deaths += 1
+        add_kill(kills)
+        add_deaths(deaths)
         pass
+
 
 #===================Team Class=====================
 class Team:
