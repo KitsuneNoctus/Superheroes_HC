@@ -112,6 +112,18 @@ class Team:
         self.name = name
         self.heroes = []
 
+    def add_hero(self, hero):
+        self.heroes.append(hero)
+
+    def remove_hero(self, name):
+        if len(self.heroes) == 0:
+            return 0
+        else:
+            self.heroes.remove(self.name)
+
+    def view_all_heroes(self):
+        pass
+
 
 if __name__=="__main__":
     #If you run this file from terminal
