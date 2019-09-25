@@ -216,10 +216,12 @@ class Arena:
         ability_max_damage = input(f"What is the max damage {ability_name} does?: ")
         new_ability = Ability(ability_name, ability_max_damage)
         return new_ability
-        pass
 
     def create_weapon(self):
-        pass
+        weapon_name = input("What is the weapon name?")
+        weapon_max_damage = input(f"What is the max damage of {weapon_name}?: ")
+        new_weapon = Weapon(weapon_name, weapon_max_damage)
+        return new_weapon
 
     def create_armor(self):
         pass
@@ -240,6 +242,11 @@ class Arena:
         pass
 
 if __name__=="__main__":
+
+    # arena = Arena()
+    # ability = arena.create_ability()
+    # print(ability.name, ability.max_damage)
+
     #If you run this file from terminal
     #this block is executed
 
