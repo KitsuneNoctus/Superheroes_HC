@@ -59,8 +59,16 @@ class Hero:
         return total_attack
 
         pass
+
+#--------Ch 5 add weapon --------------------
+def add_weapon(self, weapon):
+    '''Add weapon to self.abilities'''
+    self.abilities.append(weapon)
+    pass
 #---------------------------------------------
     def add_armor(self, armor):
+        '''Add Armor to self.armor
+            armor: Armor object'''
         self.armors.append(armor)
         pass
 #-------Defend, To be called in take Damage---------
@@ -195,17 +203,17 @@ if __name__=="__main__":
     #If you run this file from terminal
     #this block is executed
 
-    hero1 = Hero("Wonder Woman",100)
-    hero2 = Hero("Dumbledore",100)
-    ability1 = Ability("Super Speed", 300)
-    ability2 = Ability("Super Eyes", 130)
-    ability3 = Ability("Wizard Wand", 80)
-    ability4 = Ability("Wizard Beard", 20)
-    hero1.add_ability(ability1)
-    hero1.add_ability(ability2)
-    hero2.add_ability(ability3)
-    hero2.add_ability(ability4)
-    hero1.fight(hero2)
+    # hero1 = Hero("Wonder Woman",100)
+    # hero2 = Hero("Dumbledore",100)
+    # ability1 = Ability("Super Speed", 300)
+    # ability2 = Ability("Super Eyes", 130)
+    # ability3 = Ability("Wizard Wand", 80)
+    # ability4 = Ability("Wizard Beard", 20)
+    # hero1.add_ability(ability1)
+    # hero1.add_ability(ability2)
+    # hero2.add_ability(ability3)
+    # hero2.add_ability(ability4)
+    # hero1.fight(hero2)
 
     # hero = Hero("Grace Hopper", 200)
     # hero.take_damage(150)
