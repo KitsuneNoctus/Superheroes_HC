@@ -123,6 +123,8 @@ class Hero:
         pass
 
 
+
+
 #===================Team Class=====================
 class Team:
     def __init__(self, name):
@@ -153,6 +155,33 @@ class Team:
     def view_all_heroes(self):
         for hero in self.heroes:
             print(hero.name)
+
+    def attack(self, other_team):
+        ''' Battle each team against each other.'''
+        # TODO: Randomly select a living hero from each team and have
+        # them fight until one or both teams have no surviving heroes.
+        hero = self.heroes[random.randint(0,len(self.heroes)-1)]
+        other_hero = other_team.heroes[random.randint(0,len(other_team.heroes)-1)]
+        hero.fight(other_hero)
+        # Hint: Use the fight method in the Hero class.
+
+    def revive_heroes(self, health=100):
+        ''' Reset all heroes health to starting_health'''
+        # TODO: This method should reset all heroes health to their
+        # original starting value.
+        for hero in self.heroes:
+            hero.current_health += health
+        pass
+
+    def stats(self):
+        '''Print team statistics'''
+        # TODO: This method should print the ratio of kills/deaths for each
+        # member of the team to the screen.
+        # This data must be output to the console.
+        for hero in self.heroes:
+            print(f"Hero: {hero.name} | Deaths: {hero.deaths} | Kills: {hero.kills}")
+        # Hint: Use the information stored in each hero.
+        pass
 
 
 if __name__=="__main__":
