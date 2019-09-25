@@ -51,6 +51,13 @@ class Hero:
         self.abilities.append(ability)
         pass
 
+#-----+------Ch 5 add weapon ----------+------
+    def add_weapon(self, weapon):
+        '''Add weapon to self.abilities'''
+        self.abilities.append(weapon)
+        pass
+#------+---------------------------------+----
+
     def attack(self):
         total_attack = 0
         for ability in self.abilities:
@@ -60,11 +67,6 @@ class Hero:
 
         pass
 
-#--------Ch 5 add weapon --------------------
-def add_weapon(self, weapon):
-    '''Add weapon to self.abilities'''
-    self.abilities.append(weapon)
-    pass
 #---------------------------------------------
     def add_armor(self, armor):
         '''Add Armor to self.armor
@@ -198,6 +200,44 @@ class Team:
         # Hint: Use the information stored in each hero.
         pass
 
+#======================Arena Class======================
+class Arena:
+    def __init__(self):
+        '''Instantiate properties
+        team_one: None
+        team_two: None
+        '''
+        self.team_one = None
+        self.team_two = None
+        pass
+
+    def create_ability(self):
+        ability_name = input("What is the ability name?: ")
+        ability_max_damage = input(f"What is the max damage {ability_name} does?: ")
+        new_ability = Ability(ability_name, ability_max_damage)
+        return new_ability
+        pass
+
+    def create_weapon(self):
+        pass
+
+    def create_armor(self):
+        pass
+
+    def create_hero(self):
+        pass
+
+    def build_team_one(self):
+        pass
+
+    def build_team_two(self):
+        pass
+
+    def team_battle(self):
+        pass
+
+    def show_stats(self):
+        pass
 
 if __name__=="__main__":
     #If you run this file from terminal
