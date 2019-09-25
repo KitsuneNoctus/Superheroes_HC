@@ -218,13 +218,16 @@ class Arena:
         return new_ability
 
     def create_weapon(self):
-        weapon_name = input("What is the weapon name?")
+        weapon_name = input("What is the weapon name?: ")
         weapon_max_damage = input(f"What is the max damage of {weapon_name}?: ")
         new_weapon = Weapon(weapon_name, weapon_max_damage)
         return new_weapon
 
     def create_armor(self):
-        pass
+        armor_name = input("What is the armor name?": )
+        armor_max_block = input(f"What is the max defense of {armor_name}?: ")
+        new_armor = Armor(armor_name, armor_max_block)
+        return new_armor
 
     def create_hero(self):
         pass
