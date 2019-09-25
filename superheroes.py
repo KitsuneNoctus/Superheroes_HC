@@ -64,7 +64,7 @@ class Hero:
         self.armors.append(armor)
         pass
 #-------Defend, To be called in take Damage---------
-    def defend(self, incoming_damage):
+    def defend(self):
         total_defense = 0
         for armor in self.armors:
             total_defense += armor.block()
@@ -73,7 +73,7 @@ class Hero:
         pass
 #--------------------------------------------
     def take_damage(self, damage):
-        damage_taken = damage - self.defend(damage)
+        damage_taken = damage - self.defend()
         self.current_health = self.current_health - damage_taken
         return self.current_health
         pass
@@ -99,6 +99,8 @@ class Hero:
 
     def fight(self,opponent):
         """opponent will be a hero class"""
+        kill_count = 0
+        death_count = 0
         both_alive = True
         print("Hero 1: "+self.name)
         print("Hero 2: " +opponent.name)
@@ -108,18 +110,22 @@ class Hero:
             else:
                 self.take_damage(opponent.attack())
                 opponent.take_damage(self.attack())
-                # print(self.current_health)
-                # print(opponent.current_health)
+
                 if opponent.is_alive() == False:
+                    opponent.add_deaths(1)
+                    self.add_kill(1)
                     both_alive = False
-                    print(self.name + " won!")
-                    kills += 1
+                    print(self.name + " won1!")
+
                 elif self.is_alive() == False:
+                    self.add_deaths(1)
+                    opponent.add_kill(1)
+                    print(death_count)
                     both_alive = False
                     print(opponent.name + "won!")
-                    deaths += 1
-        add_kill(kills)
-        add_deaths(deaths)
+
+        # self.add_kill(kill_count)
+        # self.add_deaths(death_count)
         pass
 
 
@@ -170,7 +176,8 @@ class Team:
         # TODO: This method should reset all heroes health to their
         # original starting value.
         for hero in self.heroes:
-            hero.current_health += health
+            if hero.current_health == 0:
+                hero.current_health += health
         pass
 
     def stats(self):
