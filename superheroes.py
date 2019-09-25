@@ -224,14 +224,45 @@ class Arena:
         return new_weapon
 
     def create_armor(self):
-        armor_name = input("What is the armor name?": )
+        armor_name = input("What is the armor name?: ")
         armor_max_block = input(f"What is the max defense of {armor_name}?: ")
         new_armor = Armor(armor_name, armor_max_block)
         return new_armor
 
     def create_hero(self):
-        pass
+        #Create the hero
+        hero_name = input("What is the Hero's name?: ")
+        hero_change_health = input("Would you like to change hero health from 100?[Y/N]: ")
+        if hero_change_health == "Y" or hero_change_health == "yes" or hero_change_health == "Yes":
+            hero_health = input("What is the heroe's new health?: ")
+        else:
+            hero_health = 100
+        new_hero = Hero(hero_name, hero_health)
+        print("+++")
+        #--------To create heroes setup -----------
+        ask_ability = input("Would you like to give them an ability?[Y/N]: ")
+        if ask_ability == "Y" or ask_ability == "yes" or ask_ability == "Yes" or ask_ability == "y":
+            new_hero.abilities.append(self.create_ability())
+        else:
+            print("No abilities added")
+        print("+++")
 
+        ask_weapon = input("Would you like to give them a weapon?[Y/N]: ")
+        if ask_weapon == "Y" or ask_weapon == "yes" or ask_weapon == "Yes" or ask_weapon == "y":
+            new_hero.abilities.append(self.create_weapon())
+        else:
+            print("No weapons added")
+        print("+++")
+
+        ask_armor = input("Would you like to give them armor?[Y/N]: ")
+        if ask_armor == "Y" or ask_armor == "yes" or ask_armor == "Yes" or ask_armor == "y":
+            new_hero.armors.append(self.create_armor())
+        else:
+            print("No armor added")
+        print("+++")
+
+        return new_hero
+    #---------Creating team setup-------------
     def build_team_one(self):
         pass
 
@@ -247,6 +278,8 @@ class Arena:
 if __name__=="__main__":
 
     # arena = Arena()
+    # hero = arena.create_hero()
+    # print(hero.name, hero.abilities, hero.armors, hero.current_health)
     # ability = arena.create_ability()
     # print(ability.name, ability.max_damage)
 
