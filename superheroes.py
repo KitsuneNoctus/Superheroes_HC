@@ -117,6 +117,8 @@ class Hero:
         while both_alive:
             if len(self.abilities) == 0 and len(opponent.abilities) == 0:
                 print("Draw!")
+                #While not true, this will kill the program
+                both_alive = False
             else:
                 self.take_damage(opponent.attack())
 
@@ -274,7 +276,14 @@ class Arena:
     def build_team_one(self):
         team_name = input("1st team name: ")
         self.team_one = Team(team_name)
-        num_heroes = int(input(f"How many heroes do you want on team {team_name}?: "))
+        valid = True
+        while valid:
+            try:
+                num_heroes = int(input(f"How many heroes do you want on team {team_name}?: "))
+                valid = False
+            except ValueError:
+                print("Not Valid Entry, Try Again.")
+
 
         count = 0
         while count != num_heroes:
@@ -286,7 +295,13 @@ class Arena:
     def build_team_two(self):
         team_name = input("2nd team name: ")
         self.team_two = Team(team_name)
-        num_heroes = int(input(f"How many heroes do you want on team {team_name}?: "))
+        valid = True
+        while valid:
+            try:
+                num_heroes = int(input(f"How many heroes do you want on team {team_name}?: "))
+                valid = False
+            except ValueError:
+                print("Not Valid Entry, Try Again.")
 
         count = 0
         while count != num_heroes:
@@ -313,7 +328,9 @@ class Arena:
         winner = ""
         team_1 = self.is_team_dead(self.team_one.heroes)
         team_2 = self.is_team_dead(self.team_two.heroes)
-        if team_1 == False:
+        if team_1 == team_2:
+            print("The match is a draw!")
+        elif team_1 == False:
             winner = self.team_one.name
             print(f"Winner is team {winner}!")
             print(f"Heroes left alive from team {winner}")
@@ -329,8 +346,6 @@ class Arena:
                 # print(hero.current_health)
                 if hero.current_health > 0:
                     print(hero.name)
-        elif team_1 == team_2:
-            print("Match Draw!")
         else:
             print("Something Happened???")
 
