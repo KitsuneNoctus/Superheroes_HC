@@ -264,11 +264,26 @@ class Arena:
         return new_hero
     #---------Creating team setup-------------
     def build_team_one(self):
-        pass
+        team_name = input("1st team name: ")
+        self.team_one = Team(team_name)
+        num_heroes = int(input(f"How many heroes do you want on team {team_name}?: "))
+
+        count = 0
+        while count != num_heroes:
+            self.team_one.heroes.append(self.create_hero())
+            count += 1
 
     def build_team_two(self):
-        pass
+        team_name = input("2nd team name: ")
+        self.team_two = Team(team_name)
+        num_heroes = int(input(f"How many heroes do you want on team {team_name}?: "))
 
+        count = 0
+        while count != num_heroes:
+            self.team_two.heroes.append(self.create_hero())
+            count += 1
+        pass
+    #-----------Causes battle to happen--------------
     def team_battle(self):
         pass
 
@@ -278,6 +293,8 @@ class Arena:
 if __name__=="__main__":
 
     # arena = Arena()
+    # arena.build_team_one()
+
     # hero = arena.create_hero()
     # print(hero.name, hero.abilities, hero.armors, hero.current_health)
     # ability = arena.create_ability()
