@@ -146,6 +146,7 @@ class Team:
     def __init__(self, name):
         self.name = name
         self.heroes = []
+        # self.dead_heroes[]
 
     def add_hero(self, hero):
         self.heroes.append(hero)
@@ -196,7 +197,7 @@ class Team:
         # member of the team to the screen.
         # This data must be output to the console.
         for hero in self.heroes:
-            print(f"Hero: {hero.name} | Deaths: {hero.deaths} | Kills: {hero.kills}")
+            print(f"  - Hero: {hero.name} | Deaths: {hero.deaths} | Kills: {hero.kills}")
         # Hint: Use the information stored in each hero.
         pass
 
@@ -290,10 +291,49 @@ class Arena:
     #-----------Causes battle to happen--------------
     def team_battle(self):
         self.team_one.attack(self.team_two)
-        pass
+
+    def is_team_dead(self, team_checking):
+        death_count = 0
+        for hero in team_checking:
+            if hero.current_health == 0:
+                death_count += 1
+        if death_count == len(team_checking):
+            return True
+        else:
+            return False
 
     def show_stats(self):
+        winner = ""
+        team_1 = is_team_dead(self.team_one)
+        team_2 = is_team_dead(self.team_two)
+        if team_1 == False:
+            winner = self.team_one.name
+            print(f"Winner!: {winner}")
+            print(f"Heroes left alive from {winner}")
+            for hero in self.team_one.heroes:
+                if hero.current_health > 0:
+                    print(hero.name)
+        elif team_2 == False:
+            winner = self.team_two.name
+            print(f"Winner!: {winner}")
+            print(f"Heroes left alive from {winner}")
+            for hero in self.team_two.heroes:
+                if hero.current_health > 0:
+                    print(hero.name)
+        elif team_1 == team_2:
+            print("Match Draw!")
+        else:
+            print("Something Happened???")
+
+
+        print(f"Team {self.team_one.name} stats:")
+        self.team_one.stats()
+        print(f"Team {self.team_two.name} stats:")
+        self.team_two.stats()
+
         pass
+
+
 
 if __name__=="__main__":
 
