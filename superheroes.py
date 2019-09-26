@@ -124,14 +124,14 @@ class Hero:
                     opponent.add_deaths(1)
                     self.add_kill(1)
                     both_alive = False
-                    print(self.name + " won1!")
+                    print(self.name + " won!")
 
                 elif self.is_alive() == False:
                     self.add_deaths(1)
                     opponent.add_kill(1)
                     print(death_count)
                     both_alive = False
-                    print(opponent.name + "won!")
+                    print(opponent.name + " won!")
 
                 opponent.take_damage(self.attack())
 
@@ -139,14 +139,14 @@ class Hero:
                     opponent.add_deaths(1)
                     self.add_kill(1)
                     both_alive = False
-                    print(self.name + " won1!")
+                    print(self.name + " won!")
 
                 elif self.is_alive() == False:
                     self.add_deaths(1)
                     opponent.add_kill(1)
                     print(death_count)
                     both_alive = False
-                    print(opponent.name + "won!")
+                    print(opponent.name + " won!")
 
 
 #===================Team Class=====================
@@ -319,7 +319,7 @@ class Arena:
             print(f"Winner is team {winner}!")
             print(f"Heroes left alive from team {winner}")
             for hero in self.team_one.heroes:
-                print(hero.current_health)
+                # print(hero.current_health)
                 if hero.current_health > 0:
                     print(hero.name)
         elif team_2 == False:
@@ -327,7 +327,7 @@ class Arena:
             print(f"Winner is team {winner}!")
             print(f"Heroes left alive from {winner}")
             for hero in self.team_two.heroes:
-                print(hero.current_health)
+                # print(hero.current_health)
                 if hero.current_health > 0:
                     print(hero.name)
         elif team_1 == team_2:
