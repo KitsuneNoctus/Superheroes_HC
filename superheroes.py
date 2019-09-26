@@ -119,7 +119,6 @@ class Hero:
                 print("Draw!")
             else:
                 self.take_damage(opponent.attack())
-                opponent.take_damage(self.attack())
 
                 if opponent.is_alive() == False:
                     opponent.add_deaths(1)
@@ -134,11 +133,20 @@ class Hero:
                     both_alive = False
                     print(opponent.name + "won!")
 
-        # self.add_kill(kill_count)
-        # self.add_deaths(death_count)
-        pass
+                opponent.take_damage(self.attack())
 
+                if opponent.is_alive() == False:
+                    opponent.add_deaths(1)
+                    self.add_kill(1)
+                    both_alive = False
+                    print(self.name + " won1!")
 
+                elif self.is_alive() == False:
+                    self.add_deaths(1)
+                    opponent.add_kill(1)
+                    print(death_count)
+                    both_alive = False
+                    print(opponent.name + "won!")
 
 
 #===================Team Class=====================
@@ -308,16 +316,18 @@ class Arena:
         team_2 = self.is_team_dead(self.team_two.heroes)
         if team_1 == False:
             winner = self.team_one.name
-            print(f"Winner!: {winner}")
-            print(f"Heroes left alive from {winner}")
+            print(f"Winner is team {winner}!")
+            print(f"Heroes left alive from team {winner}")
             for hero in self.team_one.heroes:
+                print(hero.current_health)
                 if hero.current_health > 0:
                     print(hero.name)
         elif team_2 == False:
             winner = self.team_two.name
-            print(f"Winner!: {winner}")
+            print(f"Winner is team {winner}!")
             print(f"Heroes left alive from {winner}")
             for hero in self.team_two.heroes:
+                print(hero.current_health)
                 if hero.current_health > 0:
                     print(hero.name)
         elif team_1 == team_2:
