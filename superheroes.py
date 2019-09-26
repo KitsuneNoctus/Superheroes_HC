@@ -195,8 +195,7 @@ class Team:
         # TODO: This method should reset all heroes health to their
         # original starting value.
         for hero in self.heroes:
-            if hero.current_health == 0:
-                hero.current_health += health
+            hero.current_health = health
         pass
 
     def stats(self):
@@ -346,11 +345,19 @@ class Arena:
 
 
 if __name__=="__main__":
+    game_running = True
     arena = Arena()
     arena.build_team_one()
     arena.build_team_two()
-    arena.team_battle()
-    arena.show_stats()
+    while game_running:
+        arena.team_battle()
+        arena.show_stats()
+        play_again = input("Play Again?[Y/N]: ")
+        if play_again.lower() == "n" or play_again.lower() == "no":
+            game_running = False
+        else:
+            arena.team_one.revive_heroes()
+            arena.team_two.revive_heroes()
 
     # arena = Arena()
     # arena.build_team_one()
