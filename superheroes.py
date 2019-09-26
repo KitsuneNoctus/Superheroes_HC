@@ -273,6 +273,8 @@ class Arena:
             self.team_one.heroes.append(self.create_hero())
             count += 1
 
+        return self.team_one
+
     def build_team_two(self):
         team_name = input("2nd team name: ")
         self.team_two = Team(team_name)
@@ -282,9 +284,12 @@ class Arena:
         while count != num_heroes:
             self.team_two.heroes.append(self.create_hero())
             count += 1
-        pass
+
+        return self.team_two
+
     #-----------Causes battle to happen--------------
     def team_battle(self):
+        self.team_one.attack(self.team_two)
         pass
 
     def show_stats(self):
