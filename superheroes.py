@@ -214,28 +214,28 @@ class Arena:
 
     def create_ability(self):
         ability_name = input("What is the ability name?: ")
-        ability_max_damage = input(f"What is the max damage {ability_name} does?: ")
+        ability_max_damage = int(input(f"What is the max damage {ability_name} does?: "))
         new_ability = Ability(ability_name, ability_max_damage)
         return new_ability
 
     def create_weapon(self):
         weapon_name = input("What is the weapon name?: ")
-        weapon_max_damage = input(f"What is the max damage of {weapon_name}?: ")
+        weapon_max_damage = int(input(f"What is the max damage of {weapon_name}?: "))
         new_weapon = Weapon(weapon_name, weapon_max_damage)
         return new_weapon
 
     def create_armor(self):
         armor_name = input("What is the armor name?: ")
-        armor_max_block = input(f"What is the max defense of {armor_name}?: ")
+        armor_max_block = int(input(f"What is the max defense of {armor_name}?: "))
         new_armor = Armor(armor_name, armor_max_block)
         return new_armor
-
+#----------Createing the heroes here ----------------
     def create_hero(self):
         #Create the hero
         hero_name = input("What is the Hero's name?: ")
         hero_change_health = input("Would you like to change hero health from 100?[Y/N]: ")
         if hero_change_health == "Y" or hero_change_health == "yes" or hero_change_health == "Yes":
-            hero_health = input("What is the heroe's new health?: ")
+            hero_health = int(input("What is the heroe's new health?: "))
         else:
             hero_health = 100
         new_hero = Hero(hero_name, hero_health)
@@ -304,8 +304,8 @@ class Arena:
 
     def show_stats(self):
         winner = ""
-        team_1 = is_team_dead(self.team_one)
-        team_2 = is_team_dead(self.team_two)
+        team_1 = self.is_team_dead(self.team_one.heroes)
+        team_2 = self.is_team_dead(self.team_two.heroes)
         if team_1 == False:
             winner = self.team_one.name
             print(f"Winner!: {winner}")
@@ -336,6 +336,11 @@ class Arena:
 
 
 if __name__=="__main__":
+    arena = Arena()
+    arena.build_team_one()
+    arena.build_team_two()
+    arena.team_battle()
+    arena.show_stats()
 
     # arena = Arena()
     # arena.build_team_one()
