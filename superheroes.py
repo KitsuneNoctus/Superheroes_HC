@@ -122,13 +122,13 @@ class Hero:
             else:
                 self.take_damage(opponent.attack())
 
-                if opponent.is_alive() == False:
-                    opponent.add_deaths(1)
-                    self.add_kill(1)
-                    both_alive = False
-                    print(self.name + " won!")
+                # if opponent.is_alive() == False:
+                #     opponent.add_deaths(1)
+                #     self.add_kill(1)
+                #     both_alive = False
+                #     print(self.name + " won!")
 
-                elif self.is_alive() == False:
+                if self.is_alive() == False:
                     self.add_deaths(1)
                     opponent.add_kill(1)
                     print(death_count)
@@ -143,12 +143,12 @@ class Hero:
                     both_alive = False
                     print(self.name + " won!")
 
-                elif self.is_alive() == False:
-                    self.add_deaths(1)
-                    opponent.add_kill(1)
-                    print(death_count)
-                    both_alive = False
-                    print(opponent.name + " won!")
+                # elif self.is_alive() == False:
+                #     self.add_deaths(1)
+                #     opponent.add_kill(1)
+                #     print(death_count)
+                #     both_alive = False
+                #     print(opponent.name + " won!")
 
 
 #===================Team Class=====================
@@ -187,9 +187,12 @@ class Team:
         ''' Battle each team against each other.'''
         # TODO: Randomly select a living hero from each team and have
         # them fight until one or both teams have no surviving heroes.
-        hero = self.heroes[random.randint(0,len(self.heroes)-1)]
-        other_hero = other_team.heroes[random.randint(0,len(other_team.heroes)-1)]
-        hero.fight(other_hero)
+        if len(self.heroes) == 0 or len(other_team.heroes) == 0:
+            print("No Contest! One or both teams has no heroes to fight!")
+        else:
+            hero = self.heroes[random.randint(0,len(self.heroes)-1)]
+            other_hero = other_team.heroes[random.randint(0,len(other_team.heroes)-1)]
+            hero.fight(other_hero)
         # Hint: Use the fight method in the Hero class.
 
     def revive_heroes(self, health=100):
@@ -223,20 +226,40 @@ class Arena:
 
     def create_ability(self):
         ability_name = input("What is the ability name?: ")
-        ability_max_damage = int(input(f"What is the max damage {ability_name} does?: "))
-        new_ability = Ability(ability_name, ability_max_damage)
+        num_true = True
+        while num_true:
+            try:
+                ability_max_damage = int(input(f"What is the max damage {ability_name} does?: "))
+                new_ability = Ability(ability_name, ability_max_damage)
+                num_true = False
+            except ValueError:
+                print("Not Valid, Enter proper number.")
+
         return new_ability
 
     def create_weapon(self):
         weapon_name = input("What is the weapon name?: ")
-        weapon_max_damage = int(input(f"What is the max damage of {weapon_name}?: "))
-        new_weapon = Weapon(weapon_name, weapon_max_damage)
+        num_true = True
+        while num_true:
+            try:
+                weapon_max_damage = int(input(f"What is the max damage of {weapon_name}?: "))
+                new_weapon = Weapon(weapon_name, weapon_max_damage)
+                num_true = False
+            except ValueError:
+                print("Not Valid, Enter proper number.")
+
         return new_weapon
 
     def create_armor(self):
         armor_name = input("What is the armor name?: ")
-        armor_max_block = int(input(f"What is the max defense of {armor_name}?: "))
-        new_armor = Armor(armor_name, armor_max_block)
+        num_true = True
+        while num_true:
+            try:
+                armor_max_block = int(input(f"What is the max defense of {armor_name}?: "))
+                new_armor = Armor(armor_name, armor_max_block)
+                num_true = False
+            except ValueError:
+                print("Not Valid, Enter proper number.")
         return new_armor
 #----------Createing the heroes here ----------------
     def create_hero(self):
@@ -244,7 +267,13 @@ class Arena:
         hero_name = input("What is the Hero's name?: ")
         hero_change_health = input("Would you like to change hero health from 100?[Y/N]: ")
         if hero_change_health == "Y" or hero_change_health == "yes" or hero_change_health == "Yes":
-            hero_health = int(input("What is the heroe's new health?: "))
+            no_num = True
+            while no_num:
+                try:
+                    hero_health = int(input("What is the heroe's new health?: "))
+                    no_num = False
+                except ValueError:
+                    print("Not Valid Entry")
         else:
             hero_health = 100
         new_hero = Hero(hero_name, hero_health)
@@ -328,7 +357,7 @@ class Arena:
         winner = ""
         team_1 = self.is_team_dead(self.team_one.heroes)
         team_2 = self.is_team_dead(self.team_two.heroes)
-        if team_1 == team_2:
+        if team_1 == team_2 and len(self.team_one.heroes) > 0 and len(self.team_two.heroes) > 0:
             print("The match is a draw!")
         elif team_1 == False:
             winner = self.team_one.name
@@ -347,7 +376,7 @@ class Arena:
                 if hero.current_health > 0:
                     print(hero.name)
         else:
-            print("Something Happened???")
+            print("-Null-")
 
 
         print(f"Team {self.team_one.name} stats:")
@@ -364,13 +393,17 @@ if __name__=="__main__":
     arena = Arena()
     arena.build_team_one()
     arena.build_team_two()
+    match_count = 1
     while game_running:
+        print(f"Match {match_count}")
         arena.team_battle()
         arena.show_stats()
+
         play_again = input("Play Again?[Y/N]: ")
         if play_again.lower() == "n" or play_again.lower() == "no":
             game_running = False
         else:
+            match_count += 1
             arena.team_one.revive_heroes()
             arena.team_two.revive_heroes()
 
