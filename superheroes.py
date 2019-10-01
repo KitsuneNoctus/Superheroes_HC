@@ -181,6 +181,17 @@ class Team:
         for hero in self.heroes:
             print(hero.name)
 
+    def get_dead(self, team):
+        death_count = 0
+        for hero in team:
+            if hero.current_health == 0:
+                death_count += 1
+
+        if death_count == len(team):
+            return False
+        else:
+            return True
+
     def attack(self, other_team):
         ''' Battle each team against each other.'''
         # TODO: Randomly select a living hero from each team and have
@@ -189,9 +200,35 @@ class Team:
             print("No Contest! One or both teams has no heroes to fight!")
         else:
             #Add in loop so whole team fights
-            hero = self.heroes[random.randint(0,len(self.heroes)-1)]
-            other_hero = other_team.heroes[random.randint(0,len(other_team.heroes)-1)]
+            index_get = random.randint(0,len(self.heroes)-1)
+            hero = self.heroes[index_get]
+            index_get_2 = random.randint(0,len(other_team.heroes)-1)
+            other_hero = other_team.heroes[index_get_2]
+
+            # teams_alive = True
+            # while teams_alive:
+            #     get_first_hero = True
+            #     get_second_hero = True
+            #     while get_first_hero:
+            #         index_get = random.randint(0,len(self.heroes)-1)
+            #         hero = self.heroes[index_get]
+            #         if hero.current_health > 0:
+            #             get_first_hero = False
+            #     while get_second_hero:
+            #         index_get_2 = random.randint(0,len(other_team.heroes)-1)
+            #         other_hero = other_team.heroes[index_get_2]
+            #         if other_hero.current_health > 0:
+            #             get_second_hero = False
+
             hero.fight(other_hero)
+
+                # team1_alive = self.get_dead(self.heroes)
+                # team2_alive = self.get_dead(other_team.heroes)
+                #
+                # if team1_alive == False or team2_alive == False:
+                #     teams_alive = False
+
+
         # Hint: Use the fight method in the Hero class.
 
     def revive_heroes(self, health=100):
@@ -356,7 +393,7 @@ class Arena:
         winner = ""
         team_1_alive = self.is_team_dead(self.team_one.heroes)
         team_2_alive = self.is_team_dead(self.team_two.heroes)
-        if team_1_alive == False and team_2_alive == False and len(self.team_one.heroes) > 0 and len(self.team_two.heroes) > 0:
+        if team_1_alive == False and team_2_alive == False:
             print("The match is a draw!")
         elif team_1_alive == False:
             winner = self.team_one.name
@@ -388,23 +425,38 @@ class Arena:
 
 
 if __name__=="__main__":
-    game_running = True
-    arena = Arena()
-    arena.build_team_one()
-    arena.build_team_two()
-    match_count = 1
-    while game_running:
-        print(f"Match {match_count}")
-        arena.team_battle()
-        arena.show_stats()
+    game_on = True
+    print("++++++++++++++++++++++++++++++")
+    print("Welcome to Super Hero Dueler!")
+    print("++++++++++++++++++++++++++++++")
+    while game_on:
+        # print("++++++++++++++++++++++++++++++")
+        # print("Welcome to Super Hero Dueler!")
+        # print("++++++++++++++++++++++++++++++")
+        play_inquery = input("Would you like to play?[Y/N]")
+        if play_inquery.lower() == "y" or play_inquery.lower() == "yes":
+            game_running = True
+            arena = Arena()
+            arena.build_team_one()
+            arena.build_team_two()
+            match_count = 1
+            while game_running:
+                print(f"Match {match_count}")
+                arena.team_battle()
+                arena.show_stats()
 
-        play_again = input("Play Again?[Y/N]: ")
-        if play_again.lower() == "n" or play_again.lower() == "no":
-            game_running = False
+                play_again = input("Play these teams again?[Y/N]: ")
+                if play_again.lower() == "n" or play_again.lower() == "no":
+                    game_running = False
+                else:
+                    match_count += 1
+                    arena.team_one.revive_heroes()
+                    arena.team_two.revive_heroes()
+        elif play_inquery.lower() == "n" or play_inquery.lower() == "no":
+            print("Exiting")
+            game_on = False
         else:
-            match_count += 1
-            arena.team_one.revive_heroes()
-            arena.team_two.revive_heroes()
+            print("Not Valid Entry")
 
     # arena = Arena()
     # arena.build_team_one()
