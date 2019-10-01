@@ -107,6 +107,9 @@ class Hero:
         self.deaths += num_deaths
         pass
 
+    def check_alive(self, person):
+        pass
+
     def fight(self,opponent):
         """opponent will be a hero class"""
         kill_count = 0
@@ -121,34 +124,29 @@ class Hero:
                 both_alive = False
             else:
                 self.take_damage(opponent.attack())
-
-                # if opponent.is_alive() == False:
-                #     opponent.add_deaths(1)
-                #     self.add_kill(1)
-                #     both_alive = False
-                #     print(self.name + " won!")
-
+                # print(self.current_health)
+                # print(opponent.current_health)
+                #
+                # print("Check 1")
                 if self.is_alive() == False:
                     self.add_deaths(1)
                     opponent.add_kill(1)
-                    print(death_count)
                     both_alive = False
                     print(opponent.name + " won!")
+                    return
 
                 opponent.take_damage(self.attack())
-
+                # print(self.current_health)
+                # print(opponent.current_health)
+                #
+                # print("Check 2")
                 if opponent.is_alive() == False:
                     opponent.add_deaths(1)
                     self.add_kill(1)
                     both_alive = False
                     print(self.name + " won!")
+                    return
 
-                # elif self.is_alive() == False:
-                #     self.add_deaths(1)
-                #     opponent.add_kill(1)
-                #     print(death_count)
-                #     both_alive = False
-                #     print(opponent.name + " won!")
 
 
 #===================Team Class=====================
@@ -190,6 +188,7 @@ class Team:
         if len(self.heroes) == 0 or len(other_team.heroes) == 0:
             print("No Contest! One or both teams has no heroes to fight!")
         else:
+            #Add in loop so whole team fights
             hero = self.heroes[random.randint(0,len(self.heroes)-1)]
             other_hero = other_team.heroes[random.randint(0,len(other_team.heroes)-1)]
             hero.fight(other_hero)
@@ -355,11 +354,11 @@ class Arena:
 
     def show_stats(self):
         winner = ""
-        team_1 = self.is_team_dead(self.team_one.heroes)
-        team_2 = self.is_team_dead(self.team_two.heroes)
-        if team_1 == team_2 and len(self.team_one.heroes) > 0 and len(self.team_two.heroes) > 0:
+        team_1_alive = self.is_team_dead(self.team_one.heroes)
+        team_2_alive = self.is_team_dead(self.team_two.heroes)
+        if team_1_alive == False and team_2_alive == False and len(self.team_one.heroes) > 0 and len(self.team_two.heroes) > 0:
             print("The match is a draw!")
-        elif team_1 == False:
+        elif team_1_alive == False:
             winner = self.team_one.name
             print(f"Winner is team {winner}!")
             print(f"Heroes left alive from team {winner}")
@@ -367,7 +366,7 @@ class Arena:
                 # print(hero.current_health)
                 if hero.current_health > 0:
                     print(hero.name)
-        elif team_2 == False:
+        elif team_2_alive == False:
             winner = self.team_two.name
             print(f"Winner is team {winner}!")
             print(f"Heroes left alive from {winner}")
