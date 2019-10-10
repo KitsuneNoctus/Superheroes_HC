@@ -35,6 +35,7 @@ class Weapon(Ability):
 #=====================Hero Class========================
 #HERO CLASS that accesses the other objects
 class Hero:
+    """ Builds the hero and allows them to fight"""
     def __init__(self, name, starting_health=100):
         self.name = name
         self.starting_health = starting_health
@@ -59,6 +60,7 @@ class Hero:
 #------+---------------------------------+----
 
     def attack(self):
+        """To attack the opponent"""
         total_attack = 0
         for ability in self.abilities:
             total_attack += ability.attack()
@@ -98,16 +100,13 @@ class Hero:
         pass
 
     def add_kill(self, num_kills):
-        '''Update kills with num_kills'''
+        '''Update kills with num_kills the hero has'''
         self.kills += num_kills
         pass
 
     def add_deaths(self, num_deaths):
         '''update deaths with num_deaths'''
         self.deaths += num_deaths
-        pass
-
-    def check_alive(self, person):
         pass
 
     def fight(self,opponent):
@@ -124,33 +123,28 @@ class Hero:
                 both_alive = False
             else:
                 self.take_damage(opponent.attack())
-                # print(self.current_health)
-                # print(opponent.current_health)
-                #
-                # print("Check 1")
+
                 if self.is_alive() == False:
                     self.add_deaths(1)
                     opponent.add_kill(1)
                     both_alive = False
                     print(opponent.name + " won!")
-                    return
+                    break
 
                 opponent.take_damage(self.attack())
-                # print(self.current_health)
-                # print(opponent.current_health)
-                #
-                # print("Check 2")
+
                 if opponent.is_alive() == False:
                     opponent.add_deaths(1)
                     self.add_kill(1)
                     both_alive = False
                     print(self.name + " won!")
-                    return
+                    break
 
 
 
 #===================Team Class=====================
 class Team:
+    """Allows for the creation of the team with all of its heros and their powers"""
     def __init__(self, name):
         self.name = name
         self.heroes = []
@@ -167,15 +161,7 @@ class Team:
                 self.heroes.remove(hero)
                 return
         return 0
-        # if len(self.heroes) == 0:
-        #     return 0
-        # else:
-        #     # index_num = self.heroes.index(self.name)
-        #     # self.heroes.pop(index_num)\
-        #     if name in self.heroes
-        #     for hero in self.heroes:
-        #         if hero.name == name:
-        #             self.heroes.remove(hero)
+
 
     def view_all_heroes(self):
         for hero in self.heroes:
@@ -205,29 +191,7 @@ class Team:
             index_get_2 = random.randint(0,len(other_team.heroes)-1)
             other_hero = other_team.heroes[index_get_2]
 
-            # teams_alive = True
-            # while teams_alive:
-            #     get_first_hero = True
-            #     get_second_hero = True
-            #     while get_first_hero:
-            #         index_get = random.randint(0,len(self.heroes)-1)
-            #         hero = self.heroes[index_get]
-            #         if hero.current_health > 0:
-            #             get_first_hero = False
-            #     while get_second_hero:
-            #         index_get_2 = random.randint(0,len(other_team.heroes)-1)
-            #         other_hero = other_team.heroes[index_get_2]
-            #         if other_hero.current_health > 0:
-            #             get_second_hero = False
-
             hero.fight(other_hero)
-
-                # team1_alive = self.get_dead(self.heroes)
-                # team2_alive = self.get_dead(other_team.heroes)
-                #
-                # if team1_alive == False or team2_alive == False:
-                #     teams_alive = False
-
 
         # Hint: Use the fight method in the Hero class.
 
@@ -377,19 +341,23 @@ class Arena:
 
     #-----------Causes battle to happen--------------
     def team_battle(self):
+        """Calls the function within team class to start fight"""
         self.team_one.attack(self.team_two)
 
     def is_team_dead(self, team_checking):
+        """Counts number of dead on the team and checks if all are dead"""
         death_count = 0
         for hero in team_checking:
-            if hero.current_health == 0:
+            if hero.current_health <= 0:
                 death_count += 1
+
         if death_count == len(team_checking):
             return True
         else:
             return False
 
     def show_stats(self):
+        """Will display the winner, then it will show the stats of the heros who fought"""
         winner = ""
         team_1_alive = self.is_team_dead(self.team_one.heroes)
         team_2_alive = self.is_team_dead(self.team_two.heroes)
@@ -430,9 +398,7 @@ if __name__=="__main__":
     print("Welcome to Super Hero Dueler!")
     print("++++++++++++++++++++++++++++++")
     while game_on:
-        # print("++++++++++++++++++++++++++++++")
-        # print("Welcome to Super Hero Dueler!")
-        # print("++++++++++++++++++++++++++++++")
+        """Allows for the game to keep running/ to change teams or create new ones later """
         play_inquery = input("Would you like to play?[Y/N]")
         if play_inquery.lower() == "y" or play_inquery.lower() == "yes":
             game_running = True
@@ -457,55 +423,3 @@ if __name__=="__main__":
             game_on = False
         else:
             print("Not Valid Entry")
-
-    # arena = Arena()
-    # arena.build_team_one()
-
-    # hero = arena.create_hero()
-    # print(hero.name, hero.abilities, hero.armors, hero.current_health)
-    # ability = arena.create_ability()
-    # print(ability.name, ability.max_damage)
-
-    #If you run this file from terminal
-    #this block is executed
-
-    # hero1 = Hero("Wonder Woman",100)
-    # hero2 = Hero("Dumbledore",100)
-    # ability1 = Ability("Super Speed", 300)
-    # ability2 = Ability("Super Eyes", 130)
-    # ability3 = Ability("Wizard Wand", 80)
-    # ability4 = Ability("Wizard Beard", 20)
-    # hero1.add_ability(ability1)
-    # hero1.add_ability(ability2)
-    # hero2.add_ability(ability3)
-    # hero2.add_ability(ability4)
-    # hero1.fight(hero2)
-
-    # hero = Hero("Grace Hopper", 200)
-    # hero.take_damage(150)
-    # print(hero.current_health)
-    # print(hero.is_alive())
-    # hero.take_damage(15000)
-    # print(hero.current_health)
-    # print(hero.is_alive())
-
-    # hero = Hero("Grace Hopper", 200)
-    # shield = Armor("Shield", 50)
-    # hero.add_armor(shield)
-    # hero.take_damage(50)
-    # print(hero.current_health)
-
-    # ability = Ability("Roasting Ability",100)
-    # ability2 = Ability("DEATH",10)
-    #
-    # armor = Armor("Mighty Armor",2000)
-    # armor2 = Armor("Great Armor", 1000)
-    #
-    # hero.add_ability(ability)
-    # hero.add_ability(ability2)
-    #
-    # hero.add_armor(armor)
-    # hero.add_armor(armor2)
-    #
-    # print(hero.defend(10000))
-    # print(hero.attack())
